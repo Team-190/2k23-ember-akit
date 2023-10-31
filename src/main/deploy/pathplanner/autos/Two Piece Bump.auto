@@ -1,0 +1,30 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.85,
+      "y": 1.05
+    },
+    "rotation": 180.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Bump 1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Bump 2"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null
+}

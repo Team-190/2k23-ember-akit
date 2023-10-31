@@ -1,5 +1,6 @@
 package frc.robot;
 
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -73,14 +74,15 @@ public class RobotContainer {
     }
 
     // Set up named commands for PathPlanner
-    // NamedCommands.registerCommand(
-    //     "Run Flywheel",
-    //     Commands.startEnd(
-    //         () -> flywheel.runVelocity(flywheelSpeedInput.get()), flywheel::stop, flywheel));
+    NamedCommands.registerCommand(
+        "Example",
+        Commands.print(
+          "Example"
+        ));
 
     // Set up auto routines
     autoChooser.addDefaultOption("Do Nothing", Commands.none());
-    autoChooser.addOption("Example Auto", new PathPlannerAuto("Example Auto"));
+    autoChooser.addOption("Two Piece Bump", new PathPlannerAuto("Two Piece Bump"));
 
     // Set up FF characterization routines
     autoChooser.addOption(
