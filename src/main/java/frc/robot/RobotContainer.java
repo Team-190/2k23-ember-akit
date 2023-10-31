@@ -74,11 +74,7 @@ public class RobotContainer {
     }
 
     // Set up named commands for PathPlanner
-    NamedCommands.registerCommand(
-        "Example",
-        Commands.print(
-          "Example"
-        ));
+    NamedCommands.registerCommand("Example", Commands.print("Example"));
 
     // Set up auto routines
     autoChooser.addDefaultOption("Do Nothing", Commands.none());
