@@ -51,28 +51,32 @@ public class ModuleIOTalonFX implements ModuleIO {
   public ModuleIOTalonFX(int index) {
     switch (index) {
       case 0:
-        driveTalon = new TalonFX(0);
-        turnTalon = new TalonFX(1);
-        cancoder = new CANcoder(2);
-        absoluteEncoderOffset = new Rotation2d(0.0); // MUST BE CALIBRATED
+        driveTalon = new TalonFX(10);
+        turnTalon = new TalonFX(11);
+        cancoder = new CANcoder(12);
+        absoluteEncoderOffset =
+            new Rotation2d(0.4172427743048944).plus(Rotation2d.fromDegrees(180.0));
         break;
       case 1:
-        driveTalon = new TalonFX(3);
-        turnTalon = new TalonFX(4);
-        cancoder = new CANcoder(5);
-        absoluteEncoderOffset = new Rotation2d(0.0); // MUST BE CALIBRATED
+        driveTalon = new TalonFX(20);
+        turnTalon = new TalonFX(21);
+        cancoder = new CANcoder(22);
+        absoluteEncoderOffset =
+            new Rotation2d(-2.2994372010405764).plus(Rotation2d.fromDegrees(180.0));
         break;
       case 2:
-        driveTalon = new TalonFX(6);
-        turnTalon = new TalonFX(7);
-        cancoder = new CANcoder(8);
-        absoluteEncoderOffset = new Rotation2d(0.0); // MUST BE CALIBRATED
+        driveTalon = new TalonFX(30);
+        turnTalon = new TalonFX(31);
+        cancoder = new CANcoder(32);
+        absoluteEncoderOffset =
+            new Rotation2d(1.8361750030991124).plus(Rotation2d.fromDegrees(180.0));
         break;
       case 3:
-        driveTalon = new TalonFX(9);
-        turnTalon = new TalonFX(10);
-        cancoder = new CANcoder(11);
-        absoluteEncoderOffset = new Rotation2d(0.0); // MUST BE CALIBRATED
+        driveTalon = new TalonFX(40);
+        turnTalon = new TalonFX(41);
+        cancoder = new CANcoder(42);
+        absoluteEncoderOffset =
+            new Rotation2d(-1.6950487706136335).plus(Rotation2d.fromDegrees(180.0));
         break;
       default:
         throw new RuntimeException("Invalid module index");
@@ -175,6 +179,6 @@ public class ModuleIOTalonFX implements ModuleIO {
             ? InvertedValue.Clockwise_Positive
             : InvertedValue.CounterClockwise_Positive;
     config.NeutralMode = enable ? NeutralModeValue.Brake : NeutralModeValue.Coast;
-    driveTalon.getConfigurator().apply(config);
+    turnTalon.getConfigurator().apply(config);
   }
 }
