@@ -7,6 +7,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import frc.robot.Constants;
+import frc.robot.util.LoggedTunableNumber;
 import org.littletonrobotics.junction.Logger;
 
 public class Module {
@@ -16,13 +17,25 @@ public class Module {
   private final ModuleIOInputsAutoLogged inputs = new ModuleIOInputsAutoLogged();
   private final int index;
 
-  private final SimpleMotorFeedforward driveFeedforward;
-  private final PIDController driveFeedback;
-  private final PIDController turnFeedback;
+  private final PIDController driveFeedback = new PIDController(0.0, 0.0, 0.0);
+  private final PIDController turnFeedback = new PIDController(0.0, 0.0, 0.0);
+  private SimpleMotorFeedforward driveFeedforward = new SimpleMotorFeedforward(0.0, 0.0);
   private Rotation2d angleSetpoint = null; // Setpoint for closed loop control, null for open loop
   private Double speedSetpoint = null; // Setpoint for closed loop control, null for open loop
   private Rotation2d turnRelativeOffset = null; // Relative + Offset = Absolute
   private double lastPositionMeters = 0.0; // Used for delta calculation
+
+  // drive PD
+  private static LoggedTunableNumber driveKp = new LoggedTunableNumber("Drive/DriveKp");
+  private static LoggedTunableNumber driveKd = new LoggedTunableNumber("Drive/DriveKd");
+
+  // turn PD
+  private static LoggedTunableNumber turnKp = new LoggedTunableNumber("Drive/Turnkp");
+  private static LoggedTunableNumber turnKd = new LoggedTunableNumber("Drive/TurnKd");
+
+  // drive feedforward
+  private static LoggedTunableNumber driveKs = new LoggedTunableNumber("Drive/DriveKs");
+  private static LoggedTunableNumber driveKv = new LoggedTunableNumber("Drive/DriveKv");
 
   public Module(ModuleIO io, int index) {
     this.io = io;
@@ -33,19 +46,28 @@ public class Module {
     switch (Constants.currentMode) {
       case REAL:
       case REPLAY:
-        driveFeedforward = new SimpleMotorFeedforward(0.154, 0.112);
-        driveFeedback = new PIDController(0.05, 0.0, 0.0);
-        turnFeedback = new PIDController(7.0, 0.0, 0.0);
+        driveKs.initDefault(0.154);
+        driveKv.initDefault(0.112);
+        driveKp.initDefault(0.05);
+        driveKd.initDefault(0.0);
+        turnKp.initDefault(7.0);
+        turnKd.initDefault(0.0);
         break;
       case SIM:
-        driveFeedforward = new SimpleMotorFeedforward(0.0, 0.13);
-        driveFeedback = new PIDController(0.1, 0.0, 0.0);
-        turnFeedback = new PIDController(10.0, 0.0, 0.0);
+        driveKs.initDefault(0.0);
+        driveKv.initDefault(0.13);
+        driveKp.initDefault(0.1);
+        driveKd.initDefault(0.0);
+        turnKp.initDefault(10.0);
+        turnKd.initDefault(0.0);
         break;
       default:
-        driveFeedforward = new SimpleMotorFeedforward(0.0, 0.0);
-        driveFeedback = new PIDController(0.0, 0.0, 0.0);
-        turnFeedback = new PIDController(0.0, 0.0, 0.0);
+        driveKs.initDefault(0.0);
+        driveKv.initDefault(0.0);
+        driveKp.initDefault(0.0);
+        driveKd.initDefault(0.0);
+        turnKp.initDefault(0.0);
+        turnKd.initDefault(0.0);
         break;
     }
 
@@ -56,6 +78,17 @@ public class Module {
   public void periodic() {
     io.updateInputs(inputs);
     Logger.processInputs("Drive/Module" + Integer.toString(index), inputs);
+
+    // Update from tunable numbers
+    if (driveKp.hasChanged(hashCode()) || driveKd.hasChanged(hashCode())) {
+      driveFeedback.setPID(driveKp.get(), 0.0, driveKd.get());
+    }
+    if (turnKp.hasChanged(hashCode()) || turnKd.hasChanged(hashCode())) {
+      turnFeedback.setPID(turnKp.get(), 0.0, turnKd.get());
+    }
+    if (driveKs.hasChanged(hashCode()) || driveKv.hasChanged(hashCode())) {
+      driveFeedforward = new SimpleMotorFeedforward(driveKs.get(), driveKv.get());
+    }
 
     // On first cycle, reset relative turn encoder
     // Wait until absolute angle is nonzero in case it wasn't initialized yet
