@@ -1,72 +1,76 @@
+// Copyright (c) 2023 FRC 6328
+// http://github.com/Mechanical-Advantage
+//
+// Use of this source code is governed by an MIT-style
+// license that can be found in the LICENSE file at
+// the root directory of this project.
+
 package frc.robot.util;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import java.util.HashMap;
 import java.util.Map;
+import org.littletonrobotics.junction.networktables.LoggedDashboardNumber;
 
 /**
  * Class for a tunable number. Gets value from dashboard in tuning mode, returns default if not or
  * value not in dashboard.
  */
-public class TunableNumber {
+public class LoggedTunableNumber {
   private static final String tableKey = "TunableNumbers";
 
-  private String key;
+  private final String key;
+  private boolean hasDefault = false;
   private double defaultValue;
+  private LoggedDashboardNumber dashboardNumber;
   private Map<Integer, Double> lastHasChangedValues = new HashMap<>();
 
   /**
-   * Create a new TunableNumber
+   * Create a new LoggedTunableNumber
    *
    * @param dashboardKey Key on dashboard
    */
-  public TunableNumber(String dashboardKey) {
+  public LoggedTunableNumber(String dashboardKey) {
     this.key = tableKey + "/" + dashboardKey;
   }
 
   /**
-   * Create a new TunableNumber with the default value
+   * Create a new LoggedTunableNumber with the default value
    *
    * @param dashboardKey Key on dashboard
    * @param defaultValue Default value
    */
-  public TunableNumber(String dashboardKey, double defaultValue) {
+  public LoggedTunableNumber(String dashboardKey, double defaultValue) {
     this(dashboardKey);
-    setDefault(defaultValue);
+    initDefault(defaultValue);
   }
 
   /**
-   * Get the default value for the number that has been set
-   *
-   * @return The default value
-   */
-  public double getDefault() {
-    return defaultValue;
-  }
-
-  /**
-   * Set the default value of the number
+   * Set the default value of the number. The default value can only be set once.
    *
    * @param defaultValue The default value
    */
-  public void setDefault(double defaultValue) {
-    this.defaultValue = defaultValue;
-    if (Constants.tuningMode) {
-      // This makes sure the data is on NetworkTables but will not change it
-      SmartDashboard.putNumber(key, SmartDashboard.getNumber(key, defaultValue));
-    } else {
-      // SmartDashboard.delete(key);
+  public void initDefault(double defaultValue) {
+    if (!hasDefault) {
+      hasDefault = true;
+      this.defaultValue = defaultValue;
+      if (Constants.tuningMode) {
+        dashboardNumber = new LoggedDashboardNumber(key, defaultValue);
+      }
     }
   }
 
   /**
-   * Get the current value, from dashboard if available and in tuning mode
+   * Get the current value, from dashboard if available and in tuning mode.
    *
    * @return The current value
    */
   public double get() {
-    return Constants.tuningMode ? SmartDashboard.getNumber(key, defaultValue) : defaultValue;
+    if (!hasDefault) {
+      return 0.0;
+    } else {
+      return Constants.tuningMode ? dashboardNumber.get() : defaultValue;
+    }
   }
 
   /**
