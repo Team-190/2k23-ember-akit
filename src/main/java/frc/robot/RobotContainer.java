@@ -74,11 +74,13 @@ public class RobotContainer {
     }
 
     // Set up named commands for PathPlanner
-    NamedCommands.registerCommand("Example", Commands.print("Example"));
+    NamedCommands.registerCommand("Place", Commands.print("Place Piece"));
+    NamedCommands.registerCommand("Intake", Commands.print("Intaking Piece"));
 
     // Set up auto routines
     autoChooser.addDefaultOption("Do Nothing", Commands.none());
     autoChooser.addOption("Two Piece Bump", new PathPlannerAuto("Two Piece Bump"));
+    autoChooser.addOption("Two Piece Clean", new PathPlannerAuto("Two Piece Clean"));
 
     // Set up FF characterization routines
     autoChooser.addOption(

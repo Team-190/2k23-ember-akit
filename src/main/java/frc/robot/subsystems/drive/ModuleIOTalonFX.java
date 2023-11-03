@@ -54,29 +54,25 @@ public class ModuleIOTalonFX implements ModuleIO {
         driveTalon = new TalonFX(10);
         turnTalon = new TalonFX(11);
         cancoder = new CANcoder(12);
-        absoluteEncoderOffset =
-            new Rotation2d(0.4172427743048944).plus(Rotation2d.fromDegrees(180.0));
+        absoluteEncoderOffset = Rotation2d.fromRadians(-2.739689);
         break;
       case 1:
         driveTalon = new TalonFX(20);
         turnTalon = new TalonFX(21);
         cancoder = new CANcoder(22);
-        absoluteEncoderOffset =
-            new Rotation2d(-2.2994372010405764).plus(Rotation2d.fromDegrees(180.0));
+        absoluteEncoderOffset = Rotation2d.fromRadians(0.840621);
         break;
       case 2:
         driveTalon = new TalonFX(30);
         turnTalon = new TalonFX(31);
         cancoder = new CANcoder(32);
-        absoluteEncoderOffset =
-            new Rotation2d(1.8361750030991124).plus(Rotation2d.fromDegrees(180.0));
+        absoluteEncoderOffset = Rotation2d.fromRadians(-1.325359);
         break;
       case 3:
         driveTalon = new TalonFX(40);
         turnTalon = new TalonFX(41);
         cancoder = new CANcoder(42);
-        absoluteEncoderOffset =
-            new Rotation2d(-1.6950487706136335).plus(Rotation2d.fromDegrees(180.0));
+        absoluteEncoderOffset = Rotation2d.fromRadians(1.469553);
         break;
       default:
         throw new RuntimeException("Invalid module index");

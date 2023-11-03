@@ -46,11 +46,11 @@ public class Module {
     switch (Constants.currentMode) {
       case REAL:
       case REPLAY:
-        driveKs.initDefault(0.154);
-        driveKv.initDefault(0.112);
-        driveKp.initDefault(0.05);
+        driveKs.initDefault(0.13454);
+        driveKv.initDefault(0.11507);
+        driveKp.initDefault(0.08);
         driveKd.initDefault(0.0);
-        turnKp.initDefault(7.0);
+        turnKp.initDefault(9.0);
         turnKd.initDefault(0.0);
         break;
       case SIM:
