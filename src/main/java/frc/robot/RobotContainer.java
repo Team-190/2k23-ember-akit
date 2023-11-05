@@ -76,6 +76,7 @@ public class RobotContainer {
     // Set up named commands for PathPlanner
     NamedCommands.registerCommand("Place", Commands.print("Place Piece"));
     NamedCommands.registerCommand("Intake", Commands.print("Intaking Piece"));
+    NamedCommands.registerCommand("Balance", Commands.print("Balance Charging Station"));
 
     // Set up auto routines
     autoChooser.addDefaultOption("Do Nothing", Commands.none());
