@@ -42,7 +42,19 @@
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0,
+      "maxWaypointRelativePos": 2.0,
+      "constraints": {
+        "maxVelocity": 3,
+        "maxAcceleration": 3,
+        "maxAngularVelocity": 100.0,
+        "maxAngularAcceleration": 720
+      }
+    }
+  ],
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 4.0,
@@ -55,6 +67,6 @@
     "rotation": 180.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Clean Paths",
   "previewStartingState": null
 }

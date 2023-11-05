@@ -41,21 +41,20 @@
       "isLocked": false
     }
   ],
-  "rotationTargets": [
+  "rotationTargets": [],
+  "constraintZones": [
     {
-      "waypointRelativePos": 0.25,
-      "rotationDegrees": 135.0
-    },
-    {
-      "waypointRelativePos": 0.95,
-      "rotationDegrees": 100.0
-    },
-    {
-      "waypointRelativePos": 1.5,
-      "rotationDegrees": 45.0
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0.0,
+      "maxWaypointRelativePos": 2.0,
+      "constraints": {
+        "maxVelocity": 3,
+        "maxAcceleration": 3,
+        "maxAngularVelocity": 100.0,
+        "maxAngularAcceleration": 720
+      }
     }
   ],
-  "constraintZones": [],
   "eventMarkers": [
     {
       "name": "Intake",
@@ -79,7 +78,7 @@
     "rotation": 0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Bump Paths",
   "previewStartingState": {
     "rotation": 180.0,
     "velocity": 0
