@@ -54,4 +54,8 @@ public class DriveCommands {
         },
         drive);
   }
+
+  public static Command xLockWheels(Drive drive) {
+    return Commands.runOnce(drive::stopWithX);
+  }
 }
