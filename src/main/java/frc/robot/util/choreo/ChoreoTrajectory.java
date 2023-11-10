@@ -1,4 +1,4 @@
-package frc.robot.util;
+package frc.robot.util.choreo;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
