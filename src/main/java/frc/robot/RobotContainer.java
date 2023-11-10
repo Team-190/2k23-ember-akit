@@ -1,7 +1,5 @@
 package frc.robot;
 
-import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -10,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.DriveCommands;
+import frc.robot.commands.DriveTrajectory;
 import frc.robot.commands.FeedForwardCharacterization;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.GyroIO;
@@ -72,16 +71,18 @@ public class RobotContainer {
                 new ModuleIO() {});
         break;
     }
-
-    // Set up named commands for PathPlanner
-    NamedCommands.registerCommand("Place", Commands.print("Place Piece"));
-    NamedCommands.registerCommand("Intake", Commands.print("Intaking Piece"));
-    NamedCommands.registerCommand("Balance", Commands.print("Balance Charging Station"));
-
     // Set up auto routines
     autoChooser.addDefaultOption("Do Nothing", Commands.none());
-    autoChooser.addOption("Two Piece Bump", new PathPlannerAuto("Two Piece Bump"));
-    autoChooser.addOption("Two Piece Clean", new PathPlannerAuto("Two Piece Clean"));
+    var arcPathCommand = new DriveTrajectory(drive, "ArcPath");
+    autoChooser.addOption(
+        "Choreo (Arc Path)",
+        Commands.runOnce(() -> drive.setPose(arcPathCommand.getStartPose()))
+            .andThen(arcPathCommand));
+    var complexPathCommand = new DriveTrajectory(drive, "ComplexPath");
+    autoChooser.addOption(
+        "Choreo (Complex Path)",
+        Commands.runOnce(() -> drive.setPose(complexPathCommand.getStartPose()))
+            .andThen(complexPathCommand));
 
     // Set up FF characterization routines
     autoChooser.addOption(
