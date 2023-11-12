@@ -1,7 +1,7 @@
 package frc.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -31,8 +31,7 @@ public class RobotContainer {
   private final CommandXboxController controller = new CommandXboxController(0);
 
   // Dashboard inputs
-  private final LoggedDashboardChooser<Command> autoChooser =
-      new LoggedDashboardChooser<>("Auto Choices");
+  private final LoggedDashboardChooser<Command> autoChooser;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -71,22 +70,11 @@ public class RobotContainer {
         break;
     }
 
-    // Set up named commands for PathPlanner
+    // Set up auto routines
     NamedCommands.registerCommand("Place", Commands.print("Place Piece"));
     NamedCommands.registerCommand("Intake", Commands.print("Intaking Piece"));
     NamedCommands.registerCommand("Balance", Commands.print("Balance Charging Station"));
-
-    // Set up auto routines
-    autoChooser.addDefaultOption("Do Nothing", Commands.none());
-    autoChooser.addOption("Two Piece Bump", new PathPlannerAuto("Two Piece Bump"));
-    autoChooser.addOption("Three Piece Bump", new PathPlannerAuto("Three Piece Bump"));
-    autoChooser.addOption(
-        "Three Piece Bump Balance", new PathPlannerAuto("Three Piece Bump Balance"));
-
-    autoChooser.addOption("Two Piece Clean", new PathPlannerAuto("Two Piece Clean"));
-    autoChooser.addOption("Three Piece Clean", new PathPlannerAuto("Three Piece Clean"));
-    autoChooser.addOption(
-        "Three Piece Clean Balance", new PathPlannerAuto("Three Piece Clean Balance"));
+    autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
 
     // Set up FF characterization routines
     autoChooser.addOption(
