@@ -17,6 +17,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.util.LocalADStarAK;
+import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
 public class Drive extends SubsystemBase {
@@ -82,9 +83,6 @@ public class Drive extends SubsystemBase {
       }
     }
 
-    // Log measured states
-    Logger.recordOutput("SwerveStates/Measured", getModuleStates());
-
     // Log empty setpoint states when disabled
     if (DriverStation.isDisabled()) {
       Logger.recordOutput("SwerveStates/Setpoints", new SwerveModuleState[] {});
@@ -110,7 +108,6 @@ public class Drive extends SubsystemBase {
     }
     // Apply the twist (change since last loop cycle) to the current pose
     pose = pose.exp(twist);
-    Logger.recordOutput("Odometry/Robot", getPose());
   }
 
   /**
@@ -171,6 +168,7 @@ public class Drive extends SubsystemBase {
   }
 
   /** Returns the module states (turn angles and drive velocitoes) for all of the modules. */
+  @AutoLogOutput(key = "SwerveStates/Measured")
   private SwerveModuleState[] getModuleStates() {
     SwerveModuleState[] states = new SwerveModuleState[4];
     for (int i = 0; i < 4; i++) {
@@ -180,6 +178,7 @@ public class Drive extends SubsystemBase {
   }
 
   /** Returns the current odometry pose. */
+  @AutoLogOutput(key = "Odometry/Robot")
   public Pose2d getPose() {
     return pose;
   }
