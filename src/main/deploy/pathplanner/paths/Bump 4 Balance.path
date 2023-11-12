@@ -3,39 +3,39 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.08,
-        "y": 0.91
+        "x": 7.09,
+        "y": 2.16
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.890182771818536,
-        "y": 0.6508925838364495
+        "x": 6.1577104350789895,
+        "y": 1.1647551500231206
       },
       "isLocked": false
     },
     {
       "anchor": {
-        "x": 3.8738768075826755,
+        "x": 3.942391816407564,
         "y": 0.7422459289363023
       },
       "prevControl": {
-        "x": 4.4105777100443095,
-        "y": 0.7650842652112657
+        "x": 4.993246384363988,
+        "y": 0.7659494154315596
       },
       "nextControl": {
-        "x": 2.460941919578055,
-        "y": 0.682121040085041
+        "x": 2.423642454122515,
+        "y": 0.7079884245238581
       },
       "isLocked": false
     },
     {
       "anchor": {
-        "x": 1.8,
-        "y": 1.027725132373342
+        "x": 2.8461516752093337,
+        "y": 2.614989503483281
       },
       "prevControl": {
-        "x": 2.630386329508482,
-        "y": 1.027725132373342
+        "x": 0.8934739236999842,
+        "y": 1.5758452029724572
       },
       "nextControl": null,
       "isLocked": false
@@ -48,14 +48,25 @@
       "minWaypointRelativePos": 0,
       "maxWaypointRelativePos": 2.0,
       "constraints": {
-        "maxVelocity": 3.0,
+        "maxVelocity": 3,
         "maxAcceleration": 3,
-        "maxAngularVelocity": 100.0,
+        "maxAngularVelocity": 50.0,
         "maxAngularAcceleration": 720
       }
     }
   ],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Place",
+      "waypointRelativePos": 1.4,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": []
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3,
     "maxAcceleration": 3,
@@ -69,7 +80,7 @@
   "reversed": false,
   "folder": "Bump",
   "previewStartingState": {
-    "rotation": 0.0,
+    "rotation": 67.99,
     "velocity": 0
   }
 }

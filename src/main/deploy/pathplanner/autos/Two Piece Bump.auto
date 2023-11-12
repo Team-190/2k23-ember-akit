@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.85,
-      "y": 1.05
+      "x": 1.8,
+      "y": 0.55
     },
     "rotation": 180.0
   },
@@ -38,5 +38,5 @@
       ]
     }
   },
-  "folder": "Bump Side Autos"
+  "folder": "Bump"
 }

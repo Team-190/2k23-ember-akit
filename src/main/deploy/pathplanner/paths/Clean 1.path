@@ -55,7 +55,18 @@
       }
     }
   ],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Intake",
+      "waypointRelativePos": 1.4,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": []
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 4.0,
     "maxAcceleration": 3.0,
@@ -67,7 +78,7 @@
     "rotation": 0
   },
   "reversed": false,
-  "folder": "Clean Paths",
+  "folder": "Clean",
   "previewStartingState": {
     "rotation": 180.0,
     "velocity": 0

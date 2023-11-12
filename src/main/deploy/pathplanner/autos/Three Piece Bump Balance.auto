@@ -3,7 +3,7 @@
   "startingPose": {
     "position": {
       "x": 1.8,
-      "y": 4.84
+      "y": 0.55
     },
     "rotation": 180.0
   },
@@ -20,13 +20,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Clean 1"
+            "pathName": "Bump 1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Clean 2"
+            "pathName": "Bump 2"
           }
         },
         {
@@ -34,9 +34,27 @@
           "data": {
             "name": "Place"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Bump 3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Bump 4 Balance"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Balance"
+          }
         }
       ]
     }
   },
-  "folder": "Clean"
+  "folder": "Bump"
 }

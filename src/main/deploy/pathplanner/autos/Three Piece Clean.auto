@@ -34,6 +34,24 @@
           "data": {
             "name": "Place"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Clean 3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Clean 4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Place"
+          }
         }
       ]
     }

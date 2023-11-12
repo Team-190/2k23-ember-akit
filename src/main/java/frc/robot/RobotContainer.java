@@ -81,7 +81,14 @@ public class RobotContainer {
     // Set up auto routines
     autoChooser.addDefaultOption("Do Nothing", Commands.none());
     autoChooser.addOption("Two Piece Bump", new PathPlannerAuto("Two Piece Bump"));
+    autoChooser.addOption("Three Piece Bump", new PathPlannerAuto("Three Piece Bump"));
+    autoChooser.addOption(
+        "Three Piece Bump Balance", new PathPlannerAuto("Three Piece Bump Balance"));
+
     autoChooser.addOption("Two Piece Clean", new PathPlannerAuto("Two Piece Clean"));
+    autoChooser.addOption("Three Piece Clean", new PathPlannerAuto("Three Piece Clean"));
+    autoChooser.addOption(
+        "Three Piece Clean Balance", new PathPlannerAuto("Three Piece Clean Balance"));
 
     // Set up FF characterization routines
     autoChooser.addOption(
