@@ -3,7 +3,6 @@ package frc.robot.commands;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -20,14 +19,10 @@ public class DriveTrajectory extends Command {
       new LoggedTunableNumber("DriveTrajectory/DriveKp");
   private static final LoggedTunableNumber driveKd =
       new LoggedTunableNumber("DriveTrajectory/DriveKd");
-  private static final LoggedTunableNumber driveTolerance =
-      new LoggedTunableNumber("DriveTrajectory/DriveTolerance");
   private static final LoggedTunableNumber turnKp =
       new LoggedTunableNumber("DriveTrajectory/TurnKp");
   private static final LoggedTunableNumber turnKd =
       new LoggedTunableNumber("DriveTrajectory/TurnKd");
-  private static final LoggedTunableNumber turnToleranceDegrees =
-      new LoggedTunableNumber("DriveTrajectory/TurnToleranceDegrees");
 
   private final PIDController xController = new PIDController(0.0, 0.0, 0.0);
   private final PIDController yController = new PIDController(0.0, 0.0, 0.0);
@@ -99,19 +94,14 @@ public class DriveTrajectory extends Command {
     // Update from tunable numbers
     if (driveKd.hasChanged(hashCode())
         || driveKp.hasChanged(hashCode())
-        || driveTolerance.hasChanged(hashCode())
         || turnKd.hasChanged(hashCode())
-        || turnKp.hasChanged(hashCode())
-        || turnToleranceDegrees.hasChanged(hashCode())) {
+        || turnKp.hasChanged(hashCode())) {
       xController.setP(driveKp.get());
       xController.setD(driveKd.get());
-      xController.setTolerance(driveTolerance.get());
       yController.setP(driveKp.get());
       yController.setD(driveKd.get());
-      yController.setTolerance(driveTolerance.get());
       thetaController.setP(turnKp.get());
       thetaController.setD(turnKd.get());
-      thetaController.setTolerance(Units.degreesToRadians(turnToleranceDegrees.get()));
     }
 
     // Get setpoint
