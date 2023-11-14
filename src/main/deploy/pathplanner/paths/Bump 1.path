@@ -58,11 +58,18 @@
   "eventMarkers": [
     {
       "name": "Intake",
-      "waypointRelativePos": 1.55,
+      "waypointRelativePos": 1.15,
       "command": {
         "type": "parallel",
         "data": {
-          "commands": []
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
+              }
+            }
+          ]
         }
       }
     }

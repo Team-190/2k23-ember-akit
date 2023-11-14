@@ -58,11 +58,18 @@
   "eventMarkers": [
     {
       "name": "Place",
-      "waypointRelativePos": 1.4,
+      "waypointRelativePos": 1.05,
       "command": {
         "type": "parallel",
         "data": {
-          "commands": []
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Place"
+              }
+            }
+          ]
         }
       }
     }
