@@ -42,7 +42,8 @@ public class CompositeCommands {
                 Commands.none(),
                 Commands.waitUntil(pivot::atGoal),
                 Commands.waitSeconds(0.06),
-                rollers.dumpCommand()));
+                rollers.dumpCommand()))
+        .withTimeout(1);
   }
 
   public static final Command highLaunchCommand(Pivot pivot, Roller rollers) {

@@ -117,7 +117,7 @@ public class Drive extends SubsystemBase {
     drive(translation, rotation, fieldRelative, isOpenLoop);
     double endTime = Timer.getFPGATimestamp();
     Logger.recordOutput("LoopTimes/DriveMs", (endTime - startTime) * 1000);
-    }
+  }
 
   /**
    * Runs the drive at the desired velocity.

@@ -5,7 +5,6 @@ import com.ctre.phoenix6.StatusCode;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.Pigeon2Configuration;
 import com.ctre.phoenix6.hardware.Pigeon2;
-
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
 
@@ -18,7 +17,6 @@ public class GyroIOPigeon2 implements GyroIO {
   private final StatusSignal<Double> pitchVelocity = pigeon.getAngularVelocityY(); // may be X
   private final StatusSignal<Double> roll = pigeon.getRoll();
   private final StatusSignal<Double> rollVelocity = pigeon.getAngularVelocityX(); // may be Y
-
 
   public GyroIOPigeon2() {
     pigeon.getConfigurator().apply(new Pigeon2Configuration());
@@ -34,7 +32,9 @@ public class GyroIOPigeon2 implements GyroIO {
 
   @Override
   public void updateInputs(GyroIOInputs inputs) {
-    inputs.connected = BaseStatusSignal.refreshAll(yaw, yawVelocity, pitch, pitchVelocity, roll, rollVelocity).equals(StatusCode.OK);
+    inputs.connected =
+        BaseStatusSignal.refreshAll(yaw, yawVelocity, pitch, pitchVelocity, roll, rollVelocity)
+            .equals(StatusCode.OK);
     inputs.yawPosition = Rotation2d.fromDegrees(yaw.getValueAsDouble());
     inputs.yawVelocityRadPerSec = Units.degreesToRadians(yawVelocity.getValueAsDouble());
     inputs.pitchPosition = Rotation2d.fromDegrees(pitch.getValueAsDouble());

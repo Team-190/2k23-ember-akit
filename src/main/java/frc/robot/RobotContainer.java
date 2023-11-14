@@ -93,6 +93,7 @@ public class RobotContainer {
     NamedCommands.registerCommand(
         "Intake", CompositeCommands.deployAndIntakeCommand(pivot, roller));
     NamedCommands.registerCommand("Balance", new AutoBalance(drive));
+
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
 
     // Set up FF characterization routines
@@ -134,6 +135,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return pivot.resetPositionCommand().andThen(autoChooser.get());
+    return autoChooser.get();
   }
 }
