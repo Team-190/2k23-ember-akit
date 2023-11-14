@@ -30,12 +30,6 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "Place"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "Clean 3"
