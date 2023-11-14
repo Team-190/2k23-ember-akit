@@ -15,6 +15,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.util.LocalADStarAK;
 import org.littletonrobotics.junction.AutoLogOutput;
@@ -110,6 +111,14 @@ public class Drive extends SubsystemBase {
     pose = pose.exp(twist);
   }
 
+  public void drive(
+      Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
+    double startTime = Timer.getFPGATimestamp();
+    drive(translation, rotation, fieldRelative, isOpenLoop);
+    double endTime = Timer.getFPGATimestamp();
+    Logger.recordOutput("LoopTimes/DriveMs", (endTime - startTime) * 1000);
+    }
+
   /**
    * Runs the drive at the desired velocity.
    *
@@ -186,6 +195,22 @@ public class Drive extends SubsystemBase {
   /** Returns the current odometry rotation. */
   public Rotation2d getRotation() {
     return pose.getRotation();
+  }
+
+  public Rotation2d getPitch() {
+    return gyroInputs.pitchPosition;
+  }
+
+  public double getPitchVelocity() {
+    return gyroInputs.pitchVelocityRadPerSec;
+  }
+
+  public Rotation2d getRoll() {
+    return gyroInputs.rollPosition;
+  }
+
+  public double getRollVelocity() {
+    return gyroInputs.rollVelocityRadPerSec;
   }
 
   /** Resets the current odometry pose. */

@@ -19,6 +19,10 @@ public class Robot extends LoggedRobot {
   private Command autonomousCommand;
   private RobotContainer robotContainer;
 
+  public Robot() {
+    super(Constants.LOOP_PERIOD_SECS);
+  }
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
