@@ -58,4 +58,11 @@ public class DriveCommands {
   public static Command xLockWheels(Drive drive) {
     return Commands.runOnce(drive::stopWithX);
   }
+
+  public static Command zeroHeading(Drive drive) {
+    return Commands.runOnce(
+            () -> drive.setPose(new Pose2d(drive.getPose().getTranslation(), new Rotation2d())),
+            drive)
+        .ignoringDisable(true);
+  }
 }

@@ -10,7 +10,9 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
 public class Drive extends SubsystemBase {
@@ -56,9 +58,6 @@ public class Drive extends SubsystemBase {
       }
     }
 
-    // Log measured states
-    Logger.recordOutput("SwerveStates/Measured", getModuleStates());
-
     // Log empty setpoint states when disabled
     if (DriverStation.isDisabled()) {
       Logger.recordOutput("SwerveStates/Setpoints", new SwerveModuleState[] {});
@@ -84,7 +83,14 @@ public class Drive extends SubsystemBase {
     }
     // Apply the twist (change since last loop cycle) to the current pose
     pose = pose.exp(twist);
-    Logger.recordOutput("Odometry/Robot", getPose());
+  }
+
+  public void drive(
+      Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
+    double startTime = Timer.getFPGATimestamp();
+    drive(translation, rotation, fieldRelative, isOpenLoop);
+    double endTime = Timer.getFPGATimestamp();
+    Logger.recordOutput("LoopTimes/DriveMs", (endTime - startTime) * 1000);
   }
 
   /**
@@ -145,6 +151,7 @@ public class Drive extends SubsystemBase {
   }
 
   /** Returns the module states (turn angles and drive velocitoes) for all of the modules. */
+  @AutoLogOutput(key = "SwerveStates/Measured")
   private SwerveModuleState[] getModuleStates() {
     SwerveModuleState[] states = new SwerveModuleState[4];
     for (int i = 0; i < 4; i++) {
@@ -154,6 +161,7 @@ public class Drive extends SubsystemBase {
   }
 
   /** Returns the current odometry pose. */
+  @AutoLogOutput(key = "Odometry/Robot")
   public Pose2d getPose() {
     return pose;
   }
@@ -161,6 +169,22 @@ public class Drive extends SubsystemBase {
   /** Returns the current odometry rotation. */
   public Rotation2d getRotation() {
     return pose.getRotation();
+  }
+
+  public Rotation2d getPitch() {
+    return gyroInputs.pitchPosition;
+  }
+
+  public double getPitchVelocity() {
+    return gyroInputs.pitchVelocityRadPerSec;
+  }
+
+  public Rotation2d getRoll() {
+    return gyroInputs.rollPosition;
+  }
+
+  public double getRollVelocity() {
+    return gyroInputs.rollVelocityRadPerSec;
   }
 
   /** Resets the current odometry pose. */
