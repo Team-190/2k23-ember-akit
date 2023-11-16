@@ -1,5 +1,4 @@
 # 2k23 Ember (AdvantageKit) Style Guide
-
 Classes will be in ```PascalCase```:
 * ```public class ClassOne {}```
 * ```public class ClassTwo {}```
