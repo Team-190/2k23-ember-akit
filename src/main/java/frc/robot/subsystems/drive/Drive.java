@@ -1,7 +1,9 @@
 package frc.robot.subsystems.drive;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Twist2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -11,7 +13,12 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+
+import java.util.function.DoubleSupplier;
+
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
@@ -210,5 +217,52 @@ public class Drive extends SubsystemBase {
       new Translation2d(-TRACK_WIDTH_X / 2.0, TRACK_WIDTH_Y / 2.0),
       new Translation2d(-TRACK_WIDTH_X / 2.0, -TRACK_WIDTH_Y / 2.0)
     };
+  }
+
+  /** Command to drive using two joysticks, one for rotation and one for translation */
+  public Command joystickDrive(
+      DoubleSupplier xSupplier,
+      DoubleSupplier ySupplier,
+      DoubleSupplier omegaSupplier) {
+    return run(
+        () -> {
+          // Apply deadband
+          double linearMagnitude =
+              MathUtil.applyDeadband(
+                  Math.hypot(xSupplier.getAsDouble(), ySupplier.getAsDouble()), Constants.DRIVER_DEADBAND);
+          Rotation2d linearDirection =
+              new Rotation2d(xSupplier.getAsDouble(), ySupplier.getAsDouble());
+          double omega = MathUtil.applyDeadband(omegaSupplier.getAsDouble(), Constants.DRIVER_DEADBAND);
+
+          // Square values
+          linearMagnitude = linearMagnitude * linearMagnitude;
+          omega = Math.copySign(omega * omega, omega);
+
+          // Calcaulate new linear velocity
+          Translation2d linearVelocity =
+              new Pose2d(new Translation2d(), linearDirection)
+                  .transformBy(new Transform2d(linearMagnitude, 0.0, new Rotation2d()))
+                  .getTranslation();
+
+          // Convert to field relative speeds & send command
+          runVelocity(
+              ChassisSpeeds.fromFieldRelativeSpeeds(
+                  linearVelocity.getX() * getMaxLinearSpeedMetersPerSec(),
+                  linearVelocity.getY() * getMaxLinearSpeedMetersPerSec(),
+                  omega * getMaxAngularSpeedRadPerSec(),
+                  getRotation()));
+        });
+  }
+
+  /** Command to lock the wheels in an X pattern */
+  public Command xLockWheels() {
+    return runOnce(() -> stopWithX());
+  }
+
+  /** Command to zero the heading of the robot */
+  public Command zeroHeading() {
+    return runOnce(
+            () -> setPose(new Pose2d(getPose().getTranslation(), new Rotation2d())))
+        .ignoringDisable(true);
   }
 }
