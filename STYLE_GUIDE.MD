@@ -2,6 +2,7 @@
 Classes will be in ```PascalCase```:
 * ```public class ClassOne {}```
 * ```public class ClassTwo {}```
+
 <br/><br/>
 Variables will be in ```camelCase```:
 * ```public String variableOne = "my string";```
