@@ -248,7 +248,6 @@ public class Drive extends SubsystemBase {
 
   /** Command to drive using two joysticks, one for rotation and one for translation */
   public Command joystickDrive(
-      Drive drive,
       DoubleSupplier xSupplier,
       DoubleSupplier ySupplier,
       DoubleSupplier omegaSupplier) {
@@ -273,12 +272,12 @@ public class Drive extends SubsystemBase {
                   .getTranslation();
 
           // Convert to field relative speeds & send command
-          drive.runVelocity(
+          runVelocity(
               ChassisSpeeds.fromFieldRelativeSpeeds(
-                  linearVelocity.getX() * drive.getMaxLinearSpeedMetersPerSec(),
-                  linearVelocity.getY() * drive.getMaxLinearSpeedMetersPerSec(),
-                  omega * drive.getMaxAngularSpeedRadPerSec(),
-                  drive.getRotation()));
+                  linearVelocity.getX() * getMaxLinearSpeedMetersPerSec(),
+                  linearVelocity.getY() * getMaxLinearSpeedMetersPerSec(),
+                  omega * getMaxAngularSpeedRadPerSec(),
+                  getRotation()));
         });
   }
 
