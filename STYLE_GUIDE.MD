@@ -15,6 +15,8 @@ Constants will be all caps in ```SNAKE_CASE```:
 
 <br/><br/>
 Constants will be located in their respective classes, with very specific exceptions
+<br/><br/>
+
 Only create a new branch if you're making a big change to the code or at a big milestone. For example, when in a competition, use a different branch specifically for that competition so as not to clutter up the main branch with competition code
 <br/><br/>
 Unless commands need to extend Command, all commands will be inline.
