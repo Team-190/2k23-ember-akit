@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.AutoBalance;
 import frc.robot.commands.CompositeCommands;
-import frc.robot.commands.DriveCommands;
 import frc.robot.commands.FeedForwardCharacterization;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.GyroIO;
@@ -114,10 +113,10 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     drive.setDefaultCommand(
-        DriveCommands.joystickDrive(
+        drive.joystickDrive(
             drive, () -> -driver.getLeftY(), () -> -driver.getLeftX(), () -> -driver.getRightX()));
-    driver.povUp().onTrue(DriveCommands.xLockWheels(drive));
-    driver.povDown().onTrue(DriveCommands.zeroHeading(drive));
+    driver.povUp().onTrue(drive.xLockWheels());
+    driver.povDown().onTrue(drive.zeroHeading());
     driver.b().whileTrue(new AutoBalance(drive));
     operator
         .leftBumper()
