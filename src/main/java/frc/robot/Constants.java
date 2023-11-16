@@ -12,6 +12,7 @@ public final class Constants {
   public static final double LOOP_PERIOD_SECS = 0.02;
   public static final double MATCH_END_THRESHOLD =
       0.25; // FMS reports "0" ~250ms before the end of the match anyway
+  public static final double DRIVER_DEADBAND = 0.1;
 
   public static final Mode currentMode = Mode.SIM;
   public static final boolean tuningMode = true;
