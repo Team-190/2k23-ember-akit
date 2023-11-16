@@ -114,7 +114,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     drive.setDefaultCommand(
         drive.joystickDrive(
-            drive, () -> -driver.getLeftY(), () -> -driver.getLeftX(), () -> -driver.getRightX()));
+            () -> -driver.getLeftY(), () -> -driver.getLeftX(), () -> -driver.getRightX()));
     driver.povUp().onTrue(drive.xLockWheels());
     driver.povDown().onTrue(drive.zeroHeading());
     driver.b().whileTrue(new AutoBalance(drive));
