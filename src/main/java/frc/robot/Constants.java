@@ -14,7 +14,7 @@ public final class Constants {
       0.25; // FMS reports "0" ~250ms before the end of the match anyway
   public static final double DRIVER_DEADBAND = 0.1;
 
-  public static final Mode currentMode = Mode.SIM;
+  public static final Mode currentMode = Mode.REAL;
   public static final boolean tuningMode = true;
 
   public static enum Mode {

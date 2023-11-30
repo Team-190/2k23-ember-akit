@@ -17,8 +17,8 @@ import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
 public class Pivot extends SubsystemBase {
-  public static final Rotation2d STARTING_POSITION = Rotation2d.fromDegrees(150.0);
-  public static final Rotation2d IDLE_POSITION = Rotation2d.fromDegrees(150.0);
+  public static final Rotation2d STARTING_POSITION = Rotation2d.fromDegrees(150);
+  public static final Rotation2d IDLE_POSITION = Rotation2d.fromDegrees(150);
   public static final Rotation2d LAUNCH_POSITION = Rotation2d.fromDegrees(105.0);
   public static final Rotation2d DROP_POSITION = Rotation2d.fromDegrees(60.0);
   public static final Rotation2d AUTO_DROP_POSITION = Rotation2d.fromDegrees(45);
@@ -57,7 +57,7 @@ public class Pivot extends SubsystemBase {
 
   @AutoLogOutput
   public Rotation2d getPosition() {
-    return inputs.position;
+    return inputs.positionRad;
   }
 
   @Override

@@ -6,7 +6,7 @@ import org.littletonrobotics.junction.AutoLog;
 public interface PivotIO {
   @AutoLog
   public static class PivotIOInputs {
-    public Rotation2d position = new Rotation2d();
+    public Rotation2d positionRad = new Rotation2d();
     public double velocityRadPerSec = 0.0;
     public double appliedVolts = 0.0;
     public double[] currentAmps = new double[] {};

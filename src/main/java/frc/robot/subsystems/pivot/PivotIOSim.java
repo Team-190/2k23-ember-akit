@@ -24,7 +24,7 @@ public class PivotIOSim implements PivotIO {
   public void updateInputs(PivotIOInputs inputs) {
     motorSim.update(Constants.LOOP_PERIOD_SECS);
 
-    inputs.position = Rotation2d.fromRadians(motorSim.getAngleRads());
+    inputs.positionRad = Rotation2d.fromRadians(motorSim.getAngleRads());
     inputs.velocityRadPerSec = motorSim.getVelocityRadPerSec();
     inputs.appliedVolts = appliedVolts;
     inputs.currentAmps = new double[] {motorSim.getCurrentDrawAmps()};

@@ -5,7 +5,6 @@ import com.pathplanner.lib.pathfinding.Pathfinding;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PathPlannerLogging;
 import com.pathplanner.lib.util.ReplanningConfig;
-
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -23,9 +22,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.util.LocalADStarAK;
-
 import java.util.function.DoubleSupplier;
-
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
@@ -248,18 +245,18 @@ public class Drive extends SubsystemBase {
 
   /** Command to drive using two joysticks, one for rotation and one for translation */
   public Command joystickDrive(
-      DoubleSupplier xSupplier,
-      DoubleSupplier ySupplier,
-      DoubleSupplier omegaSupplier) {
+      DoubleSupplier xSupplier, DoubleSupplier ySupplier, DoubleSupplier omegaSupplier) {
     return run(
         () -> {
           // Apply deadband
           double linearMagnitude =
               MathUtil.applyDeadband(
-                  Math.hypot(xSupplier.getAsDouble(), ySupplier.getAsDouble()), Constants.DRIVER_DEADBAND);
+                  Math.hypot(xSupplier.getAsDouble(), ySupplier.getAsDouble()),
+                  Constants.DRIVER_DEADBAND);
           Rotation2d linearDirection =
               new Rotation2d(xSupplier.getAsDouble(), ySupplier.getAsDouble());
-          double omega = MathUtil.applyDeadband(omegaSupplier.getAsDouble(), Constants.DRIVER_DEADBAND);
+          double omega =
+              MathUtil.applyDeadband(omegaSupplier.getAsDouble(), Constants.DRIVER_DEADBAND);
 
           // Square values
           linearMagnitude = linearMagnitude * linearMagnitude;
@@ -288,8 +285,7 @@ public class Drive extends SubsystemBase {
 
   /** Command to zero the heading of the robot */
   public Command zeroHeading() {
-    return runOnce(
-            () -> setPose(new Pose2d(getPose().getTranslation(), new Rotation2d())))
+    return runOnce(() -> setPose(new Pose2d(getPose().getTranslation(), new Rotation2d())))
         .ignoringDisable(true);
   }
 }

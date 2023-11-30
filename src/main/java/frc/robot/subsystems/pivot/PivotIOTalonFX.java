@@ -50,7 +50,7 @@ public class PivotIOTalonFX implements PivotIO {
   public void updateInputs(PivotIOInputs inputs) {
     BaseStatusSignal.refreshAll(position, velocity, appliedVolts, current);
 
-    inputs.position = Rotation2d.fromRotations(position.getValueAsDouble() / GEAR_RATIO);
+    inputs.positionRad = Rotation2d.fromRotations(position.getValueAsDouble() / GEAR_RATIO);
     inputs.velocityRadPerSec = Units.rotationsToRadians(velocity.getValueAsDouble()) / GEAR_RATIO;
     inputs.appliedVolts = appliedVolts.getValueAsDouble();
     inputs.currentAmps = new double[] {current.getValueAsDouble()};
