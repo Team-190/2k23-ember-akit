@@ -7,7 +7,7 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
@@ -66,13 +66,12 @@ public class AutoBalance extends Command {
     } else if (Timer.getFPGATimestamp() - lastStoppedFinalTimestamp < stoppedFinalMinTime.get()) {
       drive.stopWithX();
     } else {
-      drive.drive(
-          new Translation2d(
+      drive.runVelocity(
+          ChassisSpeeds.fromFieldRelativeSpeeds(
               Units.inchesToMeters(speedInchesPerSec.get()) * (angleDegrees > 0.0 ? 1.0 : -1.0),
-              0.0),
-          0.0,
-          true,
-          false);
+              0,
+              0,
+              drive.getRotation()));
     }
 
     // Log data

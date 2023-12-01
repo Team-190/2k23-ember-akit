@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.Mechanism2d;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismRoot2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.util.Color8Bit;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -52,7 +51,7 @@ public class Pivot extends SubsystemBase {
   public Pivot(PivotIO io) {
     this.io = io;
     setDefaultCommand(run(() -> setDeployed(false)));
-    SmartDashboard.putData("Mechanism", mechanism);
+    resetPosition();
   }
 
   @AutoLogOutput

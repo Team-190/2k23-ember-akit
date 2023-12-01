@@ -51,6 +51,9 @@ public class CompositeCommands {
         .launchCommand()
         .alongWith(
             Commands.sequence(
-                Commands.none(), Commands.waitUntil(pivot::atGoal), Commands.waitSeconds(0.06)));
+                Commands.none(),
+                Commands.waitUntil(pivot::atGoal),
+                Commands.waitSeconds(0.06),
+                rollers.highLaunchCommand()));
   }
 }
